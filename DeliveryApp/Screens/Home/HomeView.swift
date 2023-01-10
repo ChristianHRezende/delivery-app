@@ -16,7 +16,6 @@ final class HomeView: UIView {
     
     private let restaurantCellIdentifier = "RestaurantCellIdentifier"
     
-    private var navigationController:UINavigationController?
     
     var restaurants: [Restaurant] = []
     
@@ -61,7 +60,6 @@ final class HomeView: UIView {
     
     lazy var tableView: RestaurantListView = {
         let tableView = RestaurantListView()
-        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -77,6 +75,7 @@ final class HomeView: UIView {
         
         if let navigationController = navigationController {
             self.categoryCollectionView.setNavigationController(navigationController)
+            self.tableView.setNavigationController(navigationController)
         }
         
     }
@@ -97,6 +96,7 @@ private extension HomeView {
     func setupViews() {
         
         self.backgroundColor = .white
+
         
         self.configureSubviews()
         self.configureSubviewsConstraints()

@@ -2,7 +2,6 @@
 //  RestaurantListView.swift
 //  DeliveryAppChallenge
 //
-//  Created by Rodrigo Borges on 04/02/22.
 //
 
 import UIKit
@@ -10,6 +9,12 @@ import UIKit
 class RestaurantListView: UITableView {
     
     var restaurantList: [Restaurant] = []
+    
+    private var navigationController:UINavigationController?
+    
+    func setNavigationController(_ navigationController:UINavigationController?){
+        self.navigationController = navigationController
+    }
     
     func updateTableView(restaurants: [Restaurant]) {
         self.restaurantList = restaurants
@@ -30,6 +35,21 @@ class RestaurantListView: UITableView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("selected",restaurantList[indexPath.row].name)
+        goToRestaurantDetail()
+    }
+    
+    func goToRestaurantDetail(){
+        guard let navigationController = navigationController else {
+            fatalError("navigationController is null")
+        }
+        navigationController.pushViewController(RestaurantDetailsViewController(), animated: true)
+    }
+    
+    
+    
     
 }
 

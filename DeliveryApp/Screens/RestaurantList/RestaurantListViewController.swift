@@ -21,6 +21,8 @@ class RestaurantListViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         navigationItem.title = category.name
         self.restaurantListView.updateTableView(restaurants: category.restaurantList)
+        self.restaurantListView.setNavigationController(self.navigationController)
+
     }
 
     required init?(coder: NSCoder) {
