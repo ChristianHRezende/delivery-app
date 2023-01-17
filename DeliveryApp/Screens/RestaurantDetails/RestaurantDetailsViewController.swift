@@ -10,16 +10,17 @@ import UIKit
 class RestaurantDetailsViewController: UIViewController {
 
     private let deliveryApi = DeliveryApi()
+    
+    private var restaurant:Restaurant!
 
-    private let restaurantDetailsView: RestaurantDetailsView = {
-
+    private  var restaurantDetailsView: RestaurantDetailsView = {
         let restaurantDetailsView = RestaurantDetailsView()
         return restaurantDetailsView
     }()
 
-    init() {
+    init(_ restaurant:Restaurant) {
         super.init(nibName: nil, bundle: nil)
-
+        self.restaurant = restaurant
     }
 
     required init?(coder: NSCoder) {
@@ -27,6 +28,7 @@ class RestaurantDetailsViewController: UIViewController {
     }
 
     override func loadView() {
+    
         self.view = restaurantDetailsView
     }
 
@@ -37,11 +39,23 @@ class RestaurantDetailsViewController: UIViewController {
             guard let restaurantDetails = restaurantDetails else {
                 return
             }
+            
+//            print(restaurantDetails)
 
             DispatchQueue.main.async {
 
-                self.restaurantDetailsView.updateView(with: restaurantDetails)
+                self.restaurantDetailsView.updateView(with: restaurantDetails,restaurant: self.restaurant)
             }
         }
     }
 }
+
+#if DEBUG
+import SwiftUI
+
+struct RestaurantDetailsViewController_Preview: PreviewProvider {
+    static var previews: some View {
+        RestaurantDetailsViewController(.stub()).showPreview()
+    }
+}
+#endif

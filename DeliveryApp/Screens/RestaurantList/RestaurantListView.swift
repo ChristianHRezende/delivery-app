@@ -37,19 +37,16 @@ class RestaurantListView: UITableView {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("selected",restaurantList[indexPath.row].name)
-        goToRestaurantDetail()
+        let selectedRestaurant = restaurantList[indexPath.row]
+        goToRestaurantDetail(selectedRestaurant)
     }
     
-    func goToRestaurantDetail(){
+    func goToRestaurantDetail(_ selectedRestaurant:Restaurant){
         guard let navigationController = navigationController else {
             fatalError("navigationController is null")
         }
-        navigationController.pushViewController(RestaurantDetailsViewController(), animated: true)
+        navigationController.pushViewController(RestaurantDetailsViewController(selectedRestaurant), animated: true)
     }
-    
-    
-    
     
 }
 
