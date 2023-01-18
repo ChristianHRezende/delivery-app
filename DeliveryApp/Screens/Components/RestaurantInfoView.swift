@@ -31,31 +31,13 @@ class RestaurantInfoView: UIView {
         return view
     }()
     
-    private let ratingLabel:UILabel = {
-        let view = UILabel(frame: .zero)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private let ratingQtdLabel:UILabel = {
-        let view = UILabel(frame: .zero)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
 
     private let mainDetailsView:UIView = {
         let view = UIView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
-        
         return view
     }()
     
-    private let ratingDetailsView:UIView = {
-        let view = UIView(frame: .zero)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        return view
-    }()
     
     init() {
         super.init(frame: .zero)
@@ -78,10 +60,8 @@ class RestaurantInfoView: UIView {
     
     
     private func setupViews(){
-        self.backgroundColor = .lightGray
         
         self.mainDetailsView.backgroundColor = .white
-        self.ratingDetailsView.backgroundColor = .white
         
         setupSubviews()
         setupConstraints()
@@ -93,11 +73,7 @@ class RestaurantInfoView: UIView {
         self.mainDetailsView.addSubview(restaurantDeliveryTimeLabel)
         self.mainDetailsView.addSubview(restaurantImage)
         
-        self.ratingDetailsView.addSubview(ratingLabel)
-        self.ratingDetailsView.addSubview(ratingQtdLabel)
-        
         self.addSubview(self.mainDetailsView)
-        self.addSubview(self.ratingDetailsView)
         
     }
     
@@ -122,40 +98,19 @@ class RestaurantInfoView: UIView {
             self.restaurantImage.trailingAnchor.constraint(equalTo: self.mainDetailsView.trailingAnchor, constant: -19)
         ]
         
-        let ratingLabelConstraints = [
-            self.ratingLabel.topAnchor.constraint(equalTo:  self.ratingDetailsView.topAnchor, constant: 24.5),
-            self.ratingLabel.leadingAnchor.constraint(equalTo: self.ratingDetailsView.leadingAnchor, constant: 21),
-            self.ratingLabel.bottomAnchor.constraint(equalTo: self.ratingDetailsView.bottomAnchor, constant: -29.5)
-        ]
-        
-        let ratingQtdLabelConstraints = [
-            self.ratingQtdLabel.topAnchor.constraint(equalTo: self.ratingDetailsView.topAnchor, constant: 24.5),
-            self.ratingQtdLabel.trailingAnchor.constraint(equalTo: self.ratingDetailsView.trailingAnchor, constant: -19),
-          
-        ]
-        
         let mainDetailsViewConstraints =  [
-            self.mainDetailsView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor,constant: 0.5),
-            self.mainDetailsView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 0),
-            self.mainDetailsView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: 0),
+            self.mainDetailsView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0),
+            self.mainDetailsView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0),
+            self.heightAnchor.constraint(greaterThanOrEqualToConstant: 102)
+
         ]
         
-        let ratingDetailsViewConstraints = [
-            self.ratingDetailsView.topAnchor.constraint(equalTo: self.mainDetailsView.bottomAnchor, constant: 0.5),
-            self.ratingDetailsView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 0),
-            self.ratingDetailsView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: 0),
-            
-        ]
         
         NSLayoutConstraint.activate(
             mainDetailsViewConstraints +
-            ratingDetailsViewConstraints +
             restaurantNameConstraints +
             restaurantDeliveryTimeLabelConstraints +
-            restaurantImageConstraints +
-            ratingLabelConstraints +
-            ratingQtdLabelConstraints
-
+            restaurantImageConstraints
         )
     }
 }
