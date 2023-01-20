@@ -40,8 +40,6 @@ class RestaurantDetailsViewController: UIViewController {
                 return
             }
             
-//            print(restaurantDetails)
-
             DispatchQueue.main.async {
 
                 self.restaurantDetailsView.updateView(with: restaurantDetails,restaurant: self.restaurant)

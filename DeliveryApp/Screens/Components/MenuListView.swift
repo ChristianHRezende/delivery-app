@@ -11,7 +11,7 @@ class MenuListView: UITableView {
     private var menuItemsTableSections:[String:[MenuItem]]?
     private var keysMenuItems:Set<String>?
     
-    func updateView(_ menuItems:[MenuItem]){
+    func updateView(with menuItems:[MenuItem]){
         var menuItemsSection:[String:[MenuItem]]?
         var keys:Set<String>?
         
@@ -66,7 +66,7 @@ class MenuListView: UITableView {
 }
 
 extension MenuListView: UITableViewDelegate,UITableViewDataSource {
-
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         if let keys = keysMenuItems  {
             return keys.count
@@ -92,8 +92,8 @@ extension MenuListView: UITableViewDelegate,UITableViewDataSource {
     //        return ""
     //    }
     
-
-
+    
+    
     // MARK: custom Section Header
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = dequeueReusableHeaderFooterView(withIdentifier: MenuItemListHeaderView.identifier) as? MenuItemListHeaderView
@@ -114,8 +114,13 @@ extension MenuListView: UITableViewDelegate,UITableViewDataSource {
         guard let cell = dequeueReusableCell(withIdentifier: MenuItemCellView.identifier) as? MenuItemCellView else{
             fatalError("cell is not from a MenuItemCellView type")
         }
-        
-        cell.setupCell(MenuItem(category: "TEst", name: "TEst", price: 20))
+        if let menuItems = menuItemsTableSections {
+            if let keys = keysMenuItems {
+                let category = Array(keys)[indexPath.section]
+                let name = menuItems[category]?[indexPath.row].name ?? ""
+                cell.setupCell(MenuItem(category: category, name: name, price: 20))
+            }
+        }
         return cell
     }
 }
@@ -128,13 +133,14 @@ struct MenuListView_Preview: PreviewProvider {
         
         let view = MenuListView()
         view.updateView(
-            [
-                MenuItem(category: "market", name: "bread", price: 2),
-                MenuItem(category: "market", name: "drink", price: 2),
-                MenuItem(category: "bar", name: "beer", price: 2),
-                MenuItem(category: "bar", name: "wine", price: 2),
-                
-            ]
+            with:
+                [
+                    MenuItem(category: "Market", name: "bread", price: 2),
+                    MenuItem(category: "Market", name: "drink", price: 2),
+                    MenuItem(category: "Bar", name: "beer", price: 2),
+                    MenuItem(category: "Bar", name: "wine", price: 2),
+                    
+                ]
         )
         
         return view.showPreview()

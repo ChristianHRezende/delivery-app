@@ -9,14 +9,20 @@ import UIKit
 
 final class RestaurantDetailsView: UIView {
     
-    private lazy var restaurantInfoView:RestaurantInfoView = {
+    private var restaurantInfoView:RestaurantInfoView = {
         let view = RestaurantInfoView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private lazy var ratingView:RatingView = {
+    private var ratingView:RatingView = {
         let view = RatingView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private let menuList:MenuListView = {
+        let view = MenuListView(frame: .zero, style: .plain)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -25,6 +31,7 @@ final class RestaurantDetailsView: UIView {
         
         self.restaurantInfoView.updateData(with: restaurant)
         self.ratingView.updateData(with: restaurantDetails)
+        self.menuList.updateView(with: restaurantDetails.menu)
     }
     
     init() {
@@ -47,21 +54,37 @@ final class RestaurantDetailsView: UIView {
         
         self.addSubview(restaurantInfoView)
         self.addSubview(ratingView)
+        self.addSubview(menuList)
         
     }
     
     private func setupConstraints(){
-        NSLayoutConstraint.activate([
-
+        
+        let  restaurantInfoViewConstraints = [
             restaurantInfoView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 0.5),
             restaurantInfoView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 0),
             restaurantInfoView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: 0),
-            
+        ]
+        
+        let  ratingViewConstraints = [
             ratingView.topAnchor.constraint(equalTo: self.restaurantInfoView.bottomAnchor, constant: 0),
             ratingView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 0),
             ratingView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: 0),
-            
-        ])
+        ]
+        
+        let menuListConstraints = [
+            self.menuList.topAnchor.constraint(equalTo: self.ratingView.bottomAnchor, constant: 0),
+            self.menuList.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0),
+            self.menuList.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0),
+            self.menuList.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0),
+            self.menuList.heightAnchor.constraint(greaterThanOrEqualToConstant: 600)
+        ]
+        
+        NSLayoutConstraint.activate(
+            restaurantInfoViewConstraints +
+            ratingViewConstraints +
+            menuListConstraints
+        )
     }
     
     
@@ -75,7 +98,6 @@ struct RestaurantDetailsView_Preview: PreviewProvider {
         let view = RestaurantDetailsView()
         view.updateView(with: .stub(), restaurant: .stub())
         return view.showPreview()
-        
     }
 }
 #endif

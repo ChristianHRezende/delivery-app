@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RestaurantInfoView: UIView {
+final class RestaurantInfoView: UIView {
     private var restaurant:Restaurant?
     
     private let restaurantNameLabel:UILabel = {
