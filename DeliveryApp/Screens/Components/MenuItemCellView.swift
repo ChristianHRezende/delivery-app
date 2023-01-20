@@ -9,7 +9,7 @@ import UIKit
 
 class MenuItemCellView: UITableViewCell {
     
-    let identifier = "MenuItemCellView"
+    static let identifier = "MenuItemCellView"
     
     private let infoView:UIView = {
         let view = UIView(frame: .zero)
@@ -52,7 +52,7 @@ class MenuItemCellView: UITableViewCell {
     }
     
     init(){
-        super.init(style: .default, reuseIdentifier: identifier)
+        super.init(style: .default, reuseIdentifier: MenuItemCellView.identifier)
         setupViews()
     }
     
@@ -76,10 +76,18 @@ class MenuItemCellView: UITableViewCell {
     }
     
     private func setupConstraints(){
+       
+        
+        let menuItemImageConstraints = [
+            menuItemImage.widthAnchor.constraint(equalToConstant: 64),
+            menuItemImage.heightAnchor.constraint(equalToConstant: 64),
+            menuItemImage.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            menuItemImage.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+        ]
         
         let infoViewConstraints = [
             infoView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0),
-            infoView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0),
+            infoView.trailingAnchor.constraint(equalTo: self.menuItemImage.leadingAnchor, constant: 0),
             infoView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             infoView.heightAnchor.constraint(greaterThanOrEqualToConstant: 64)
         ]
@@ -96,19 +104,14 @@ class MenuItemCellView: UITableViewCell {
             labelName.widthAnchor.constraint(equalToConstant: 263)
         ]
         
-        let menuItemImageConstraints = [
-            menuItemImage.widthAnchor.constraint(equalToConstant: 64),
-            menuItemImage.heightAnchor.constraint(equalToConstant: 64),
-            menuItemImage.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            menuItemImage.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-        ]
-         
-        
         NSLayoutConstraint.activate(
+            [
+                self.heightAnchor.constraint(greaterThanOrEqualToConstant: 74)
+            ] +
+            menuItemImageConstraints +
             infoViewConstraints +
             labelNameConstraints +
-            labelPriceConstraints +
-            menuItemImageConstraints
+            labelPriceConstraints
         )
         
     }
