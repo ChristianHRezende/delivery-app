@@ -8,31 +8,31 @@
 import UIKit
 
 struct RestaurantListViewConfiguration {
-
+    
     let restaurants: [Restaurant]
 }
 
 class RestaurantListViewController: UIViewController {
     
-    let restaurantListView = RestaurantListView()
+    private let restaurantListView:RestaurantListView = {
+        let view = RestaurantListView(frame: .zero)
+        return view
+    }()
     
-
-    init(category:Category) {
+    init(navigationController:UINavigationController, category:Category) {
         super.init(nibName: nil, bundle: nil)
         navigationItem.title = category.name
+        
+        self.restaurantListView.setNavigationController(navigationController)
+        
         self.restaurantListView.updateTableView(restaurants: category.restaurantList)
-        self.restaurantListView.setNavigationController(self.navigationController)
-
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func loadView() {
         self.view = restaurantListView
     }
-    
-    
-    
 }

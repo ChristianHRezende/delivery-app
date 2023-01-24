@@ -12,7 +12,7 @@ class RestaurantListView: UITableView {
     
     private var navigationController:UINavigationController?
     
-    func setNavigationController(_ navigationController:UINavigationController?){
+    func setNavigationController(_ navigationController:UINavigationController){
         self.navigationController = navigationController
     }
     
@@ -42,7 +42,7 @@ class RestaurantListView: UITableView {
     }
     
     func goToRestaurantDetail(_ selectedRestaurant:Restaurant){
-        guard let navigationController = navigationController else {
+        guard let navigationController = self.navigationController else {
             fatalError("navigationController is null")
         }
         navigationController.pushViewController(RestaurantDetailsViewController(selectedRestaurant), animated: true)
@@ -61,6 +61,13 @@ extension RestaurantListView: UITableViewDelegate, UITableViewDataSource {
         
         cell.setupCell(restaurant: restaurantList[indexPath.row])
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedRestaurant = restaurantList[indexPath.row]
+        if let navigationController = navigationController {
+            navigationController.pushViewController(RestaurantDetailsViewController(selectedRestaurant), animated: true)
+        }
     }
 }
 

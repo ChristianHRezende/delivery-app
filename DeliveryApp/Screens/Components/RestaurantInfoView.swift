@@ -55,7 +55,7 @@ final class RestaurantInfoView: UIView {
     
     func updateData(with restaurant:Restaurant){
         self.restaurantNameLabel.text = restaurant.name
-        self.restaurantDeliveryTimeLabel.text = "\(restaurant.category) + \(restaurant.deliveryTime.min)-\(restaurant.deliveryTime.max)"
+        self.restaurantDeliveryTimeLabel.text = .formattedRestaurantInfo(category: restaurant.category, minDeliveryTime: restaurant.deliveryTime.min, maxDeliveryTime: restaurant.deliveryTime.max)
     }
     
     

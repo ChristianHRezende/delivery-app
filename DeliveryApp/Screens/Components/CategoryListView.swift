@@ -50,7 +50,7 @@ class CategoryListView: UICollectionView, UICollectionViewDataSource, UICollecti
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedCategory = categories[indexPath.row]
         if let navigationController = navigationController {
-            navigationController.pushViewController(RestaurantListViewController(category:selectedCategory), animated: true)
+            navigationController.pushViewController(RestaurantListViewController(navigationController: navigationController,category:selectedCategory), animated: true)
         }
     }
     

@@ -9,13 +9,21 @@ import UIKit
 
 final class RestaurantDetailsView: UIView {
     
-    private var restaurantInfoView:RestaurantInfoView = {
+    
+    private let containerView:UIView = {
+        let view  = UIView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .lightGray
+        return view
+    }()
+    
+    private let restaurantInfoView:RestaurantInfoView = {
         let view = RestaurantInfoView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private var ratingView:RatingView = {
+    private let ratingView:RatingView = {
         let view = RatingView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -50,26 +58,35 @@ final class RestaurantDetailsView: UIView {
     }
     
     private func setupSubviews(){
-        self.backgroundColor = .lightGray
+        self.backgroundColor = .white
         
-        self.addSubview(restaurantInfoView)
-        self.addSubview(ratingView)
-        self.addSubview(menuList)
+        self.addSubview(containerView)
+        
+        
+        containerView.addSubview(restaurantInfoView)
+        containerView.addSubview(ratingView)
+        containerView.addSubview(menuList)
         
     }
     
     private func setupConstraints(){
+        let containerViewConstraints = [
+            containerView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 0),
+            containerView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 0),
+            containerView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: 0),
+            containerView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: 0)
+        ]
         
         let  restaurantInfoViewConstraints = [
-            restaurantInfoView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 0.5),
-            restaurantInfoView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 0),
-            restaurantInfoView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: 0),
+            restaurantInfoView.topAnchor.constraint(equalTo: self.containerView.topAnchor, constant: 0),
+            restaurantInfoView.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: 0),
+            restaurantInfoView.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: 0),
         ]
         
         let  ratingViewConstraints = [
             ratingView.topAnchor.constraint(equalTo: self.restaurantInfoView.bottomAnchor, constant: 0),
-            ratingView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 0),
-            ratingView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: 0),
+            ratingView.leadingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: 0),
+            ratingView.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: 0),
         ]
         
         let menuListConstraints = [
@@ -81,6 +98,7 @@ final class RestaurantDetailsView: UIView {
         ]
         
         NSLayoutConstraint.activate(
+            containerViewConstraints +
             restaurantInfoViewConstraints +
             ratingViewConstraints +
             menuListConstraints

@@ -344,7 +344,6 @@
 		98F12963272F307100B88A87 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				98E5E0452939271C00E59E56 /* RestaurantCellView.swift */,
 				98E5E0492939273200E59E56 /* LoadingView.swift */,
 				98E5E04B2939273900E59E56 /* EmptyView.swift */,
 				98E5E04D2939274400E59E56 /* AddressCellView.swift */,
@@ -352,6 +351,7 @@
 				98E5E0532939277500E59E56 /* DividerView.swift */,
 				98E5E0552939277C00E59E56 /* CategoryCellView.swift */,
 				98E5E0582939279700E59E56 /* CategoryListView.swift */,
+				98E5E0452939271C00E59E56 /* RestaurantCellView.swift */,
 				98E5E05A293927A700E59E56 /* RestaurantInfoView.swift */,
 				98E5E05C293927B200E59E56 /* RatingView.swift */,
 				98E5E05E293927BB00E59E56 /* MenuItemCellView.swift */,
